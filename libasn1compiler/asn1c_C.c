@@ -2394,7 +2394,7 @@ emit_default_string_value(arg_t *arg, asn1p_value_t *v) {
 		uint8_t *e = v->value.string.size + b;
 		OUT("{ ");
 		for(;b < e; b++)
-			OUT("0x%02x, ", *b);
+			OUT("0x%02X, ", *b);
 		OUT("0 };\n");
 	}
 }
@@ -2407,7 +2407,7 @@ emit_default_bitstring_value(arg_t *arg, asn1p_value_t *v) {
 
 	uint8_t *b = v->value.binary_vector.bits;
 	for (int i = 0; i < (v->value.binary_vector.size_in_bits + 7)/8; i++, b++) {
-		OUT("0x%02x", *b);
+		OUT("0x%02X", *b);
 		if(i < (v->value.binary_vector.size_in_bits + 7)/8 - 1)
 			OUT(", ");
 	}
@@ -2510,8 +2510,7 @@ try_inline_default(arg_t *arg, asn1p_expr_t *expr, int out) {
 		return 0;
 	default:
 	  if(expr->marker.default_value) {
-	    if(!(etype & ASN_STRING_KM_MASK) &&
-		(expr->marker.default_value->type != ATV_STRING) &&
+	    if((expr->marker.default_value->type != ATV_STRING) &&
 		(expr->marker.default_value->type != ATV_BITVECTOR))
 			break;
 		if(!out) {
