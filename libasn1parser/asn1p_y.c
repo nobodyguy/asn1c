@@ -2601,7 +2601,7 @@ yyreduce:
   case 55:
 #line 771 "asn1p_y.y" /* yacc.c:1646  */
     {
-		(yyval.a_int) = OID_WITH_SUCCESSORS;
+		(yyval.a_int) = XPT_WITH_SUCCESSORS;
 	}
 #line 2607 "asn1p_y.c" /* yacc.c:1646  */
     break;
@@ -2609,7 +2609,7 @@ yyreduce:
   case 56:
 #line 774 "asn1p_y.y" /* yacc.c:1646  */
     {
-		(yyval.a_int) = OID_WITH_DESCENDANTS;
+		(yyval.a_int) = XPT_WITH_DESCENDANTS;
 	}
 #line 2615 "asn1p_y.c" /* yacc.c:1646  */
     break;
