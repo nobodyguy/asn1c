@@ -532,7 +532,7 @@ abuf_oint(abuf *ab, asn1c_integer_t v, asn1c_integer_t natural_start) {
     if(v == (-2147483647L - 1)) {
         abuf_printf(ab, "(-2147483647L - 1)");
     } else {
-        abuf_printf(ab, "%s%s", asn1p_itoa(v), natural_start ? "L" : "UL");
+        abuf_printf(ab, "%s", asn1p_itoa(v));
     }
 }
 
