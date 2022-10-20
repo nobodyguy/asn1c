@@ -15,6 +15,9 @@ check_PROGRAMS =                \
     check-OER-support           \
     check-OER-INTEGER           \
     check-OER-NativeEnumerated  \
+    check-APER-support          \
+    check-APER-OCTET_STRING     \
+    check-APER-INTEGER		\
     check-UPER-support          \
     check-UPER-UniversalString  \
     check-UPER-INTEGER
@@ -35,6 +38,9 @@ check_PROGRAMS +=                   \
     check-32-OER-support            \
     check-32-OER-INTEGER            \
     check-32-OER-NativeEnumerated   \
+    check-32-APER-support           \
+    check-32-APER-OCTET_STRING      \
+    check-32-APER-INTEGER           \
     check-32-UPER-support           \
     check-32-UPER-UniversalString   \
     check-32-UPER-INTEGER
@@ -81,6 +87,15 @@ check_32_OER_INTEGER_SOURCES=check-OER-INTEGER.c
 check_32_OER_NativeEnumerated_CFLAGS=$(CFLAGS_M32)
 check_32_OER_NativeEnumerated_LDADD=$(LDADD_32)
 check_32_OER_NativeEnumerated_SOURCES=check-OER-NativeEnumerated.c
+check_32_APER_support_CFLAGS=$(CFLAGS_M32)
+check_32_APER_support_LDADD=$(LDADD_32)
+check_32_APER_support_SOURCES=check-APER-support.c
+check_32_APER_OCTET_STRING_CFLAGS=$(CFLAGS_M32)
+check_32_APER_OCTET_STRING_LDADD=$(LDADD_32)
+check_32_APER_OCTET_STRING_SOURCES=check-APER-OCTET_STRING.c
+check_32_APER_INTEGER_CFLAGS=$(CFLAGS_M32)
+check_32_APER_INTEGER_LDADD=$(LDADD_32)
+check_32_APER_INTEGER_SOURCES=check-APER-INTEGER.c
 check_32_UPER_support_CFLAGS=$(CFLAGS_M32)
 check_32_UPER_support_LDADD=$(LDADD_32)
 check_32_UPER_support_SOURCES=check-UPER-support.c
@@ -90,6 +105,7 @@ check_32_UPER_UniversalString_SOURCES=check-UPER-UniversalString.c
 check_32_UPER_INTEGER_CFLAGS=$(CFLAGS_M32)
 check_32_UPER_INTEGER_LDADD=$(LDADD_32)
 check_32_UPER_INTEGER_SOURCES=check-UPER-INTEGER.c
+
 
 LDADD_32 = -lm $(top_builddir)/skeletons/libasn1cskeletons_c89_32.la
 endif

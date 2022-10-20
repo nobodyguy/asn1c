@@ -123,6 +123,8 @@ ats_simple_name(enum asn_transfer_syntax syntax) {
     case ATS_BASIC_XER:
     case ATS_CANONICAL_XER:
         return "XER";
+    case ATS_BASIC_JER:
+      return "JER";
     case ATS_UNALIGNED_BASIC_PER:
     case ATS_UNALIGNED_CANONICAL_PER:
         return "PER";
@@ -170,6 +172,8 @@ static syntax_selector output_encodings[] = {
      "Output as Aligned PER (Packed Encoding Rules)"},
     {"xer", ATS_BASIC_XER, CODEC_OFFSET(xer_encoder),
      "Output as XER (XML Encoding Rules)"},
+    {"jer", ATS_BASIC_JER, CODEC_OFFSET(jer_encoder),
+     "Output as JER (JSON Encoding Rules)"},
     {"text", ATS_NONSTANDARD_PLAINTEXT, CODEC_OFFSET(print_struct),
      "Output as plain semi-structured text"},
     {"null", ATS_INVALID, CODEC_OFFSET(print_struct),
