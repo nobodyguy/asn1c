@@ -10,7 +10,7 @@ PANDOC_OPTIONS= --from markdown --to man        \
 		--standalone
 
 %.1: %.man.md
-	${PANDOC} ${PANDOC_OPTIONS} -o $@ $<
+	"${PANDOC}" ${PANDOC_OPTIONS} -o $@ $<
 
 endif
 

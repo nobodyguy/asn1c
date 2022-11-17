@@ -12,8 +12,8 @@ asn1f_fix_dereference_types(arg_t *arg) {
 		return 0;	/* Just ignore it */
 	}
 
-	DEBUG("(\"%s\":%x ::= \"%s\") for line %d",
-		expr->Identifier, expr->expr_type,
+	DEBUG("(\"%s\":%s ::= \"%s\") for line %d",
+		expr->Identifier, ASN_EXPR_TYPE2STR(expr->expr_type),
 		asn1f_printable_value(expr->value),
 		expr->_lineno);
 
