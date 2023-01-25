@@ -16,8 +16,8 @@ asn1f_value_resolve(arg_t *arg, asn1p_expr_t *expr, const enum asn1p_constraint_
 	if(expr->value->type != ATV_REFERENCED)
 		return 0;
 
-	DEBUG("(=\"%s\", %x%s%s)",
-		asn1f_printable_value(expr->value), expr->expr_type,
+	DEBUG("(=\"%s\", %s%s%s)",
+		asn1f_printable_value(expr->value), ASN_EXPR_TYPE2STR(expr->expr_type),
 		opt_constr_type ? ", " : "",
 		opt_constr_type
 			? asn1p_constraint_type2str(*opt_constr_type) : ""

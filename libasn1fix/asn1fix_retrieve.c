@@ -538,7 +538,7 @@ asn1f_find_terminal_thing(arg_t *arg, asn1p_expr_t *expr, enum ftt_what what) {
         tc = WITH_MODULE(ref->module,
                          asn1f_lookup_symbol(arg, expr->rhs_pspecs, ref));
         if(tc == NULL) {
-			DEBUG("\tSymbol \"%s\" not found: %s",
+			FATAL("\tSymbol \"%s\" not found: %s",
 				asn1f_printable_reference(ref),
 				strerror(errno));
             return NULL;
@@ -549,7 +549,7 @@ asn1f_find_terminal_thing(arg_t *arg, asn1p_expr_t *expr, enum ftt_what what) {
 	 * Recursive loops detection.
 	 */
     if(tc->_mark & TM_RECURSION) {
-        DEBUG("Recursion loop detected for %s at line %d",
+        FATAL("Recursion loop detected for %s at line %d",
               asn1f_printable_reference(ref), ref->_lineno);
         errno = EPERM;
         return NULL;
