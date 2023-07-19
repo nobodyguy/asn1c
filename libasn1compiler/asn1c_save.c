@@ -581,13 +581,6 @@ asn1c_save_streams(arg_t *arg, asn1c_dep_chainset *deps, const char *destdir,
 	generate_preamble(arg, fp_h, optc, argv);
 
 	header_id = asn1c_make_identifier(AMI_USE_PREFIX, expr, NULL);
-	safe_fprintf(fp_h,
-		"#ifndef\t_%s_H_\n"
-		"#define\t_%s_H_\n"
-		"\n", header_id, header_id);
-
-	safe_fprintf(fp_h, "\n");
-	HINCLUDE("asn_application.h");
 
 #define	SAVE_STREAM(fp, idx, msg, actdep)	do {			\
 	if(TQ_FIRST(&(cs->destination[idx].chunks)) && *msg)		\
@@ -599,6 +592,14 @@ asn1c_save_streams(arg_t *arg, asn1c_dep_chainset *deps, const char *destdir,
 } while(0)
 
 	SAVE_STREAM(fp_h, OT_INCLUDES,	"Including external dependencies", 1);
+
+	safe_fprintf(fp_h,
+		"#ifndef\t_%s_H_\n"
+		"#define\t_%s_H_\n"
+		"\n", header_id, header_id);
+
+	safe_fprintf(fp_h, "\n");
+	HINCLUDE("asn_application.h");
 
 	safe_fprintf(fp_h, "\n#ifdef __cplusplus\nextern \"C\" {\n#endif\n");
 	SAVE_STREAM(fp_h, OT_DEPS,	"Dependencies", 0);

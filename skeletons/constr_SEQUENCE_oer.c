@@ -131,7 +131,7 @@ SEQUENCE_decode_oer(const asn_codec_ctx_t *opt_codec_ctx,
         ASN_DEBUG(
             "Expecting preamble bits %" ASN_PRI_SIZE " for %s (including %d extension bits)",
             preamble_bits, td->name, has_extensions_bit);
-
+        ctx->start = ptr;
         if(preamble_bytes > size) {
             ASN__DECODE_STARVED;
         }
@@ -208,6 +208,7 @@ SEQUENCE_decode_oer(const asn_codec_ctx_t *opt_codec_ctx,
             }
             switch(rval.code) {
             case RC_OK:
+                ctx->left = consumed_myself;
                 ADVANCE(rval.consumed);
                 break;
             case RC_WMORE:
@@ -246,6 +247,7 @@ SEQUENCE_decode_oer(const asn_codec_ctx_t *opt_codec_ctx,
 
         if(!extensions_present) {
             ctx->phase = 10;
+            ctx->left = consumed_myself;
             RETURN(RC_OK);
         }
 
@@ -369,7 +371,7 @@ SEQUENCE_decode_oer(const asn_codec_ctx_t *opt_codec_ctx,
             break;
         }
     }
-
+    ctx->left = consumed_myself;
     RETURN(RC_OK);
 }
 

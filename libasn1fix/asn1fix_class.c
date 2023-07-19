@@ -29,8 +29,15 @@ asn1f_class_access(arg_t *arg, asn1p_expr_t *rhs_pspecs, const asn1p_ref_t *ref)
         errno = ESRCH;
 		return NULL;
 	}
-	if(ioclass->expr_type == A1TC_REFERENCE) {
-        ioclass = WITH_MODULE(
+	expr = ioclass; 
+	while(ioclass->expr_type == A1TC_REFERENCE) {
+		if((ioclass->_mark & TM_RECURSION)){
+	        WARNING("Referencing loop detected for (%s)", asn1f_printable_reference(&tmpref));
+        	errno = ESRCH;
+			return NULL;
+		}
+		ioclass->_mark |= TM_RECURSION;
+		ioclass = WITH_MODULE(
             ioclass->module,
             asn1f_lookup_symbol(arg, ioclass->rhs_pspecs, ioclass->reference));
         if(ioclass == NULL) {
@@ -38,6 +45,12 @@ asn1f_class_access(arg_t *arg, asn1p_expr_t *rhs_pspecs, const asn1p_ref_t *ref)
 			return NULL;
 		}
 	}
+	while(expr){
+		expr->_mark &= ~TM_RECURSION;
+		if(!expr->reference) break;
+		expr = expr->reference->ref_expr;
+	}
+
 	if(ioclass->expr_type != A1TC_CLASSDEF) {
 		if(!(ioclass->_mark & TM_BROKEN)) {
 			ioclass->_mark |= TM_BROKEN;

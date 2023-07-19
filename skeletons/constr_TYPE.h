@@ -32,6 +32,7 @@ typedef struct asn_struct_ctx_s {
 	int context;		/* Other context information */
 	void *ptr;		/* Decoder-specific stuff (stack elements) */
 	ber_tlv_len_t left;	/* Number of bytes left, -1 for indefinite */
+    char* start;
 } asn_struct_ctx_t;
 
 #if !defined(ASN_DISABLE_BER_SUPPORT)

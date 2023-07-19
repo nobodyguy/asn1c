@@ -174,6 +174,7 @@ CHOICE_decode_oer(const asn_codec_ctx_t *opt_codec_ctx,
         case -1:
             ASN__DECODE_FAILED;
         }
+        ctx->start = ptr;
 
         do {
             const asn_TYPE_tag2member_t *t2m;
@@ -263,6 +264,7 @@ CHOICE_decode_oer(const asn_codec_ctx_t *opt_codec_ctx,
     }
     case 2:
         /* Already decoded everything */
+        ctx->left = consumed_myself;
         RETURN(RC_OK);
     case 3:
         /* Failed to decode, after all */

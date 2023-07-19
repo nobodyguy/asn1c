@@ -45,7 +45,9 @@
 
 #ifdef _MSC_VER			/* MSVS.Net */
 #ifndef __cplusplus
+#ifndef inline
 #define inline __inline
+#endif
 #endif
 #ifndef	ASSUMESTDTYPES	/* Standard types have been defined elsewhere */
 #define	ssize_t		SSIZE_T
@@ -63,10 +65,13 @@ typedef	unsigned int	uint32_t;
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <float.h>
+#ifndef isnan
 #define isnan _isnan
+#endif
 #define finite _finite
 #define copysign _copysign
 #define	ilogb	_logb
+#define random rand
 #else	/* !_MSC_VER */
 #include <stdint.h>
 #endif	/* _MSC_VER */
@@ -155,8 +160,13 @@ typedef	unsigned int	uint32_t;
 #define ASN_PRIuMAX PRIuMAX
 #define ASN_PRIdMAX PRIdMAX
 #else
+#if _MSC_VER >= 1800
+#define ASN_PRI_SIZE "zu"
+#define ASN_PRI_SSIZE "zd"
+#else
 #define ASN_PRI_SIZE "lu"
 #define ASN_PRI_SSIZE "ld"
+#endif
 #if LLONG_MAX > LONG_MAX
 #define ASN_PRIuMAX "llu"
 #define ASN_PRIdMAX "lld"

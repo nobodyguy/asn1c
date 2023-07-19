@@ -457,9 +457,9 @@ asn1f_resolve_constraints(arg_t *arg) {
 		etype = top_parent->expr_type;
 	else	etype = A1TC_INVALID;
 
-	DEBUG("(%s)", arg->expr->Identifier);
+	DEBUG("(%s)=>%s", arg->expr->Identifier, ASN_EXPR_TYPE2STR(etype));
 
-    ret = asn1constraint_resolve(arg, arg->expr->constraints, etype, 0);
+    ret = asn1constraint_resolve(arg, arg->expr->constraints, etype, ACT_INVALID);
     RET2RVAL(ret, rvalue);
 
 	return rvalue;

@@ -1283,8 +1283,23 @@ asn1c_lang_C_type_REFERENCE_Value(arg_t *arg) {
 int
 asn1c_lang_C_type_REFERENCE(arg_t *arg) {
 	asn1p_ref_t *ref;
+	asn1p_expr_t *top;
 
 	ref = arg->expr->reference;
+
+	/* check if topref is class */
+	top = ref->ref_expr;
+	while(top) {
+		if(top->expr_type == A1TC_REFERENCE && top->meta_type == AMT_TYPEREF) {
+			top = top->reference->ref_expr;
+			continue;
+		}
+		if(top->meta_type == AMT_OBJECTCLASS) {
+			return 0;
+		}
+		break;
+	}
+
 	if(ref->components[ref->comp_count-1].name[0] == '&') {
 		asn1p_expr_t *extract;
 		arg_t tmp;
@@ -2525,8 +2540,7 @@ try_inline_default(arg_t *arg, asn1p_expr_t *expr, int out) {
 		return 0;
 	default:
 	  if(expr->marker.default_value) {
-	    if(!(etype & ASN_STRING_KM_MASK) &&
-		(expr->marker.default_value->type != ATV_STRING) &&
+	    if((expr->marker.default_value->type != ATV_STRING) &&
 		(expr->marker.default_value->type != ATV_BITVECTOR))
 			break;
 		if(!out) {

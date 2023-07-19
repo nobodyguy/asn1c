@@ -1076,7 +1076,7 @@ asn1constraint_compute_constraint_range(
 			range->incompatible = 1;
 			return range;
 		}
-		assert(ct->el_count == 1);
+//		assert(ct->el_count == 1);
 		tmp = asn1constraint_compute_constraint_range(
 			dbg_name, expr_type, ct->elements[0], requested_ct_type, minmax,
 			exmet, cpr_flags);
